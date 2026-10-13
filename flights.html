@@ -927,14 +927,18 @@
       `;
 
       card.querySelector(".select-button").addEventListener("click", () => {
-        alert(
-          "You selected sample flight " + flightNumber + ".\n\n" +
-          "Route: " + origin + " → " + destination + "\n" +
-          "Departure: " + flightDate + "\n" +
-          "Sample fare: " + flight.price + "\n\n" +
-          "This is a fictional demonstration. No booking or payment has been made."
-        );
-      });
+  const bookingParams = new URLSearchParams({
+    origin: origin,
+    destination: destination,
+    departDate: departDate,
+    returnDate: returnDateValue,
+    passengers: String(passengers),
+    tripType: tripType,
+    flight: String(index)
+  });
+
+  window.location.href = "booking.html?" + bookingParams.toString();
+});
 
       return card;
     }
