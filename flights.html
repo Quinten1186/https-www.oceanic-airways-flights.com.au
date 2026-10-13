@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#071b33">
+
+  <title>Flight Results | Oceanic Airways</title>
+
+  <style>
+    :root {
+      --navy: #071b33;
+      --navy-light: #102b49;
+      --blue: #087eaf;
+      --blue-light: #16a5d8;
+      --gold: #e6bd70;
+      --white: #ffffff;
+      --background: #f3f6fa;
+      --text: #17283b;
+      --muted: #718096;
+      --border: #e0e7ef;
+      --green: #16835e;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .top-bar {
+      background: #041326;
+      color: #dbe7f4;
+      padding: 9px 5%;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    header {
+      background: var(--navy);
+      color: var(--white);
+      border-bottom: 3px solid var(--gold);
+    }
+
+    .nav-container {
+      max-width: 1250px;
+      margin: auto;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 45px;
+      height: 45px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      color: var(--gold);
+      font-size: 23px;
+    }
+
+    .brand-name {
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .brand-subtitle {
+      display: block;
+      color: #a9bed4;
+      font-size: 10px;
+      letter-spacing: 3px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 14px;
+    }
+
+    nav a {
+      color: #e0eaf5;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--gold);
+    }
+
+    .nav-button {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 10px 17px;
+      border-radius: 5px;
+      font-weight: 700;
+    }
+
+    .hero {
+      background:
+        radial-gradient(ellipse at 85% 20%, #155477 0%, transparent 42%),
+        linear-gradient(120deg, #071b33, #103a5b);
+      color: var(--white);
+      padding: 55px 24px 80px;
+    }
+
+    .hero-inner {
+      max-width: 1150px;
+      margin: auto;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 48px);
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+
+    .hero p {
+      max-width: 650px;
+      color: #c7d9e9;
+      font-size: 16px;
+    }
+
+    .main-container {
+      max-width: 1150px;
+      margin: -38px auto 0;
+      padding: 0 24px 70px;
+      position: relative;
+    }
+
+    .search-summary {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 12px 35px rgba(7, 27, 51, 0.09);
+      padding: 24px;
+      margin-bottom: 30px;
+    }
+
+    .summary-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .summary-top h2 {
+      font-size: 19px;
+      color: var(--navy);
+    }
+
+    .edit-link {
+      color: var(--blue);
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .route-summary {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .airport-code {
+      font-size: clamp(25px, 4vw, 36px);
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.2;
+    }
+
+    .airport-label {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    .route-arrow {
+      color: var(--blue);
+      font-size: 27px;
+    }
+
+    .route-destination {
+      text-align: right;
+    }
+
+    .trip-details {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      padding-top: 20px;
+      margin-top: 20px;
+      border-top: 1px solid var(--border);
+      color: #536477;
+      font-size: 13px;
+    }
+
+    .results-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .results-heading h2 {
+      color: var(--navy);
+      font-size: 25px;
+    }
+
+    .results-heading p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .demo-badge {
+      display: inline-block;
+      background: #fff3d9;
+      color: #815b13;
+      border: 1px solid #f0d8a0;
+      padding: 7px 11px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .flight-list {
+      display: grid;
+      gap: 18px;
+    }
+
+    .flight-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .flight-card:hover {
+      box-shadow: 0 10px 28px rgba(7, 27, 51, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .flight-main {
+      padding: 24px;
+      display: grid;
+      grid-template-columns: minmax(150px, 1fr) minmax(200px, 1.5fr) minmax(125px, 0.8fr);
+      gap: 25px;
+      align-items: center;
+    }
+
+    .airline-name {
+      color: var(--navy);
+      font-weight: 800;
+      font-size: 15px;
+    }
+
+    .flight-number {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .aircraft {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    .flight-times {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .time {
+      font-size: 24px;
+      color: var(--navy);
+      font-weight: 800;
+      line-height: 1.3;
+    }
+
+    .time-code {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .flight-duration {
+      flex: 1;
+      text-align: center;
+      min-width: 65px;
+    }
+
+    .duration-label {
+      color: var(--muted);
+      font-size: 11px;
+      margin-bottom: 5px;
+    }
+
+    .flight-line {
+      height: 1px;
+      background: #b9c9d8;
+      position: relative;
+    }
+
+    .flight-line::before,
+    .flight-line::after {
+      content: "";
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--blue);
+      top: -3px;
+    }
+
+    .flight-line::before {
+      left: 0;
+    }
+
+    .flight-line::after {
+      right: 0;
+    }
+
+    .stops-label {
+      color: var(--green);
+      font-size: 11px;
+      margin-top: 5px;
+    }
+
+    .price-area {
+      text-align: right;
+    }
+
+    .price-label {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .price {
+      font-size: 27px;
+      color: var(--navy);
+      font-weight: 800;
+      line-height: 1.3;
+    }
+
+    .price-note {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .select-button {
+      display: inline-block;
+      margin-top: 12px;
+      background: var(--blue);
+      color: var(--white);
+      border: 0;
+      border-radius: 5px;
+      padding: 10px 17px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 13px;
+      transition: background 0.2s;
+    }
+
+    .select-button:hover {
+      background: var(--navy);
+    }
+
+    .flight-footer {
+      border-top: 1px solid var(--border);
+      background: #fbfcfe;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .flight-footer strong {
+      color: var(--green);
+    }
+
+    .empty-state {
+      background: var(--white);
+      padding: 35px 24px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .empty-state h3 {
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .empty-state p {
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .empty-state a {
+      display: inline-block;
+      background: var(--blue);
+      color: white;
+      padding: 11px 18px;
+      border-radius: 5px;
+      font-weight: 700;
+    }
+
+    .info-panel {
+      margin-top: 30px;
+      background: #e8f3fa;
+      border: 1px solid #c8e1ef;
+      padding: 20px 22px;
+      border-radius: 9px;
+      color: #31536b;
+      font-size: 13px;
+    }
+
+    .info-panel strong {
+      display: block;
+      color: var(--navy);
+      margin-bottom: 5px;
+    }
+
+    footer {
+      background: #041326;
+      color: #d1dfed;
+      padding: 45px 24px 20px;
+    }
+
+    .footer-inner {
+      max-width: 1150px;
+      margin: auto;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 35px;
+      flex-wrap: wrap;
+      padding-bottom: 30px;
+    }
+
+    .footer-brand p {
+      color: #91a8bf;
+      max-width: 320px;
+      font-size: 13px;
+      margin-top: 12px;
+    }
+
+    .footer-links h3 {
+      color: var(--gold);
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      display: block;
+      color: #b7c8d9;
+      font-size: 13px;
+      margin: 7px 0;
+    }
+
+    .footer-links a:hover {
+      color: var(--gold);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #24384d;
+      padding-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+      color: #8198af;
+      font-size: 11px;
+    }
+
+    @media (max-width: 850px) {
+      .nav-container {
+        flex-wrap: wrap;
+      }
+
+      nav {
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+
+      .flight-main {
+        grid-template-columns: 1fr 1.5fr;
+      }
+
+      .price-area {
+        grid-column: 1 / -1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        text-align: left;
+        gap: 15px;
+        border-top: 1px solid var(--border);
+        padding-top: 18px;
+      }
+
+      .select-button {
+        margin-top: 0;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .top-bar {
+        justify-content: center;
+        text-align: center;
+      }
+
+      .nav-container {
+        padding: 15px 18px;
+      }
+
+      nav {
+        width: 100%;
+        gap: 14px;
+        font-size: 12px;
+      }
+
+      .nav-button {
+        padding: 8px 10px;
+      }
+
+      .hero {
+        padding: 40px 20px 65px;
+      }
+
+      .main-container {
+        padding: 0 14px 45px;
+      }
+
+      .search-summary {
+        padding: 18px;
+      }
+
+      .route-summary {
+        gap: 10px;
+      }
+
+      .airport-code {
+        font-size: 26px;
+      }
+
+      .route-arrow {
+        font-size: 20px;
+      }
+
+      .trip-details {
+        gap: 8px 15px;
+      }
+
+      .flight-main {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 19px;
+      }
+
+      .price-area {
+        grid-column: auto;
+      }
+
+      .time {
+        font-size: 21px;
+      }
+
+      .flight-footer {
+        padding: 12px 19px;
+      }
+
+      .footer-top {
+        gap: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top-bar">
+    <span>✈ YOUR JOURNEY STARTS HERE</span>
+    <span>FICTIONAL AIRLINE · WEBSITE DEMO</span>
+  </div>
+
+  <header>
+    <div class="nav-container">
+      <a class="brand" href="index.html" aria-label="Oceanic Airways homepage">
+        <div class="brand-icon">✦</div>
+        <div>
+          <div class="brand-name">OCEANIC AIRWAYS</div>
+          <span class="brand-subtitle">BEYOND THE HORIZON</span>
+        </div>
+      </a>
+
+      <nav aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="index.html#destinations">Destinations</a>
+        <a href="index.html#experience">Our Experience</a>
+        <a href="index.html#offers">Offers</a>
+        <a href="index.html#booking" class="nav-button">Book a Flight</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">Your next adventure awaits</div>
+      <h1>Flight Results</h1>
+      <p>Explore your journey with Oceanic Airways. Choose the flight that suits your plans and discover a more comfortable way to travel.</p>
+    </div>
+  </section>
+
+  <main class="main-container">
+
+    <section class="search-summary" aria-label="Your search details">
+      <div class="summary-top">
+        <h2>Your journey</h2>
+        <a class="edit-link" href="index.html#booking">← Change search</a>
+      </div>
+
+      <div class="route-summary">
+        <div>
+          <div class="airport-code" id="originCode">---</div>
+          <div class="airport-label" id="originName">Departure airport</div>
+        </div>
+
+        <div class="route-arrow" aria-hidden="true">✈</div>
+
+        <div class="route-destination">
+          <div class="airport-code" id="destinationCode">---</div>
+          <div class="airport-label" id="destinationName">Arrival airport</div>
+        </div>
+      </div>
+
+      <div class="trip-details">
+        <span id="tripType">Round trip</span>
+        <span id="departureDate">Departure: Not selected</span>
+        <span id="returnDate">Return: Not selected</span>
+        <span id="passengerCount">1 passenger</span>
+      </div>
+    </section>
+
+    <div class="results-heading">
+      <div>
+        <h2>Available flights</h2>
+        <p id="resultsDescription">Explore our sample flight options.</p>
+      </div>
+
+      <span class="demo-badge">DEMO FLIGHT DATA</span>
+    </div>
+
+    <section id="flightResults" class="flight-list" aria-live="polite"></section>
+
+    <div class="info-panel">
+      <strong>Important information</strong>
+      Oceanic Airways is a fictional airline. These flight options, schedules and fares are examples for this website demonstration only. They are not live airline data, and selecting a flight will not make a real booking or payment.
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+
+        <div class="footer-brand">
+          <a class="brand" href="index.html">
+            <div class="brand-icon">✦</div>
+            <div>
+              <div class="brand-name">OCEANIC AIRWAYS</div>
+              <span class="brand-subtitle">BEYOND THE HORIZON</span>
+            </div>
+          </a>
+
+          <p>Discover the world with our fictional airline, designed around comfort, thoughtful service and the joy of travel.</p>
+        </div>
+
+        <div class="footer-links">
+          <h3>EXPLORE</h3>
+          <a href="index.html">Homepage</a>
+          <a href="index.html#destinations">Destinations</a>
+          <a href="index.html#experience">Our Experience</a>
+        </div>
+
+        <div class="footer-links">
+          <h3>YOUR JOURNEY</h3>
+          <a href="index.html#booking">Search Flights</a>
+          <a href="index.html#offers">Special Offers</a>
+          <a href="flights.html">Flight Results</a>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Oceanic Airways · Fictional airline website</span>
+        <a href="index.html">Return to homepage ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+
+    const origin = (params.get("origin") || "").toUpperCase();
+    const destination = (params.get("destination") || "").toUpperCase();
+    const departDate = params.get("departDate") || "";
+    const returnDateValue = params.get("returnDate") || "";
+    const passengers = Math.max(
+      1,
+      Math.min(9, parseInt(params.get("passengers") || "1", 10) || 1)
+    );
+    const tripType = params.get("tripType") === "oneway"
+      ? "oneway"
+      : "roundtrip";
+
+    const airports = {
+      SYD: "Sydney, Australia",
+      MEL: "Melbourne, Australia",
+      BNE: "Brisbane, Australia",
+      PER: "Perth, Australia",
+      ADL: "Adelaide, Australia",
+      DRW: "Darwin, Australia",
+      CBR: "Canberra, Australia",
+      OOL: "Gold Coast, Australia",
+      AKL: "Auckland, New Zealand",
+      WLG: "Wellington, New Zealand",
+      CHC: "Christchurch, New Zealand",
+      SIN: "Singapore",
+      HKG: "Hong Kong",
+      NRT: "Tokyo Narita, Japan",
+      HND: "Tokyo Haneda, Japan",
+      KIX: "Osaka, Japan",
+      ICN: "Seoul Incheon, South Korea",
+      BKK: "Bangkok, Thailand",
+      HKT: "Phuket, Thailand",
+      DPS: "Bali Denpasar, Indonesia",
+      CGK: "Jakarta, Indonesia",
+      KUL: "Kuala Lumpur, Malaysia",
+      MNL: "Manila, Philippines",
+      DEL: "Delhi, India",
+      BOM: "Mumbai, India",
+      DOH: "Doha, Qatar",
+      DXB: "Dubai, United Arab Emirates",
+      AUH: "Abu Dhabi, United Arab Emirates",
+      LHR: "London Heathrow, United Kingdom",
+      CDG: "Paris Charles de Gaulle, France",
+      FRA: "Frankfurt, Germany",
+      AMS: "Amsterdam, Netherlands",
+      FCO: "Rome Fiumicino, Italy",
+      IST: "Istanbul, Türkiye",
+      JFK: "New York JFK, United States",
+      LAX: "Los Angeles, United States",
+      SFO: "San Francisco, United States",
+      YVR: "Vancouver, Canada",
+      YYZ: "Toronto, Canada",
+      JNB: "Johannesburg, South Africa",
+      CPT: "Cape Town, South Africa",
+      NBO: "Nairobi, Kenya",
+      CAI: "Cairo, Egypt",
+      GRU: "São Paulo, Brazil",
+      EZE: "Buenos Aires, Argentina",
+      SCL: "Santiago, Chile",
+      PPT: "Papeete, French Polynesia",
+      NAN: "Nadi, Fiji",
+      HNL: "Honolulu, United States",
+      MLE: "Malé, Maldives"
+    };
+
+    function formatDate(dateString) {
+      if (!dateString) {
+        return "Not selected";
+      }
+
+      const date = new Date(dateString + "T12:00:00");
+
+      if (Number.isNaN(date.getTime())) {
+        return "Not selected";
+      }
+
+      return date.toLocaleDateString("en-AU", {
+        day: "numeric",
+        month: "short",
+        year: "numeric"
+      });
+    }
+
+    function setSearchSummary() {
+      document.getElementById("originCode").textContent = origin || "---";
+      document.getElementById("destinationCode").textContent = destination || "---";
+
+      document.getElementById("originName").textContent =
+        airports[origin] || (origin ? "Departure airport" : "No airport selected");
+
+      document.getElementById("destinationName").textContent =
+        airports[destination] || (destination ? "Arrival airport" : "No airport selected");
+
+      document.getElementById("tripType").textContent =
+        tripType === "oneway" ? "One-way trip" : "Round trip";
+
+      document.getElementById("departureDate").textContent =
+        "Departure: " + formatDate(departDate);
+
+      const returnElement = document.getElementById("returnDate");
+
+      if (tripType === "oneway") {
+        returnElement.hidden = true;
+      } else {
+        returnElement.hidden = false;
+        returnElement.textContent =
+          "Return: " + formatDate(returnDateValue);
+      }
+
+      document.getElementById("passengerCount").textContent =
+        passengers + (passengers === 1 ? " passenger" : " passengers");
+    }
+
+    function createFlightCard(flight, index) {
+      const card = document.createElement("article");
+      card.className = "flight-card";
+
+      const flightNumber = "OA" + (100 + index * 37);
+      const flightDate = formatDate(departDate);
+
+      card.innerHTML = `
+        <div class="flight-main">
+          <div>
+            <div class="airline-name">Oceanic Airways</div>
+            <div class="flight-number">${flightNumber} · ${flight.name}</div>
+            <div class="aircraft">${flight.aircraft}</div>
+          </div>
+
+          <div class="flight-times">
+            <div>
+              <div class="time">${flight.depart}</div>
+              <div class="time-code">${origin}</div>
+            </div>
+
+            <div class="flight-duration">
+              <div class="duration-label">${flight.duration}</div>
+              <div class="flight-line"></div>
+              <div class="stops-label">Non-stop*</div>
+            </div>
+
+            <div>
+              <div class="time">${flight.arrive}</div>
+              <div class="time-code">${destination}</div>
+            </div>
+          </div>
+
+          <div class="price-area">
+            <div>
+              <div class="price-label">Sample fare per passenger</div>
+              <div class="price">${flight.price}</div>
+              <div class="price-note">Illustrative fare only</div>
+            </div>
+
+            <button class="select-button" type="button" data-flight="${index}">
+              Select flight
+            </button>
+          </div>
+        </div>
+
+        <div class="flight-footer">
+          <span>✈ ${flightDate}</span>
+          <span><strong>✓</strong> Sample schedule</span>
+          <span>Cabin: Economy</span>
+        </div>
+      `;
+
+      card.querySelector(".select-button").addEventListener("click", () => {
+        alert(
+          "You selected sample flight " + flightNumber + ".\n\n" +
+          "Route: " + origin + " → " + destination + "\n" +
+          "Departure: " + flightDate + "\n" +
+          "Sample fare: " + flight.price + "\n\n" +
+          "This is a fictional demonstration. No booking or payment has been made."
+        );
+      });
+
+      return card;
+    }
+
+    function showFlights() {
+      const results = document.getElementById("flightResults");
+      const description = document.getElementById("resultsDescription");
+
+      if (!origin || !destination || origin === destination || !departDate) {
+        results.innerHTML = `
+          <div class="empty-state">
+            <h3>Let's plan your journey</h3>
+            <p>Please return to the homepage and enter a valid departure airport, destination and departure date.</p>
+            <a href="index.html#booking">Search for flights</a>
+          </div>
+        `;
+
+        description.textContent = "Your search details are incomplete.";
+        return;
+      }
+
+      const sampleFlights = [
+        {
+          name: "Oceanic Standard",
+          aircraft: "Airbus A320",
+          depart: "08:15",
+          arrive: "11:05",
+          duration: "2h 50m",
+          price: "$189"
+        },
+        {
+          name: "Oceanic Comfort",
+          aircraft: "Airbus A321neo",
+          depart: "12:40",
+          arrive: "15:30",
+          duration: "2h 50m",
+          price: "$249"
+        },
+        {
+          name: "Oceanic Premium",
+          aircraft: "Airbus A330",
+          depart: "18:20",
+          arrive: "21:10",
+          duration: "2h 50m",
+          price: "$329"
+        }
+      ];
+
+      results.replaceChildren();
+
+      sampleFlights.forEach((flight, index) => {
+        results.appendChild(createFlightCard(flight, index));
+      });
+
+      description.textContent =
+        "Showing 3 sample flight options for " +
+        origin + " → " + destination +
+        ". Departure: " + formatDate(departDate) + ".";
+
+      if (tripType === "roundtrip" && returnDateValue) {
+        description.textContent +=
+          " Return: " + formatDate(returnDateValue) + ".";
+      }
+
+      description.textContent +=
+        " Prices are illustrative and are not live fares.";
+    }
+
+    setSearchSummary();
+    showFlights();
+  </script>
+
+</body>
+</html>
