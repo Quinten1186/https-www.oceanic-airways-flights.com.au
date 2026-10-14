@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Extras | Oceanic Airways</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f6fa;
+      color: #17324d;
+    }
+
+    header {
+      background: #003b5c;
+      color: white;
+      padding: 24px 8%;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    header p {
+      margin-bottom: 0;
+      color: #c9e7f5;
+    }
+
+    .progress {
+      background: white;
+      padding: 16px 8%;
+      border-bottom: 1px solid #ddd;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    .progress strong {
+      color: #0077a8;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 35px auto;
+      padding: 0 20px;
+    }
+
+    .intro {
+      margin-bottom: 28px;
+    }
+
+    .intro h2 {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .intro p {
+      color: #64748b;
+      line-height: 1.6;
+    }
+
+    .extra-card {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .extra-card h3 {
+      margin-top: 0;
+      font-size: 21px;
+    }
+
+    .extra-card p {
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    label {
+      display: block;
+      margin-top: 18px;
+      font-weight: bold;
+    }
+
+    select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border: 1px solid #ccd5df;
+      border-radius: 7px;
+      font-size: 15px;
+      background: white;
+    }
+
+    .price-summary {
+      background: #e4f3fa;
+      border-radius: 12px;
+      padding: 22px;
+      margin-top: 28px;
+    }
+
+    .price-summary h3 {
+      margin-top: 0;
+    }
+
+    .price {
+      font-size: 28px;
+      font-weight: bold;
+      color: #003b5c;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 14px 22px;
+      border-radius: 7px;
+      text-decoration: none;
+      text-align: center;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      font-size: 15px;
+    }
+
+    .back-button {
+      background: #e2e8f0;
+      color: #17324d;
+    }
+
+    .continue-button {
+      background: #0077a8;
+      color: white;
+    }
+
+    .continue-button:hover {
+      background: #005b82;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #64748b;
+      font-size: 13px;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 22px;
+      }
+
+      .progress {
+        padding: 15px 20px;
+        line-height: 1.8;
+      }
+
+      .intro h2 {
+        font-size: 25px;
+      }
+
+      .extra-card {
+        padding: 20px;
+      }
+
+      .buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🌊 OCEANIC AIRWAYS</h1>
+    <p>Your journey, your way.</p>
+  </header>
+
+  <div class="progress">
+    Flights → Passenger Details → <strong>Travel Extras</strong> → Payment
+  </div>
+
+  <main>
+
+    <section class="intro">
+      <h2>Make your journey yours ✈️</h2>
+      <p>
+        Add a few extras to make your Oceanic Airways experience even better.
+        You can review your selections before continuing.
+      </p>
+    </section>
+
+    <section class="extra-card">
+      <h3>🧳 Additional baggage</h3>
+      <p>Need more room for your belongings? Add an extra checked bag.</p>
+
+      <label for="baggage">Additional checked bags</label>
+      <select id="baggage">
+        <option value="0">No additional bags — $0</option>
+        <option value="1">1 additional bag — $40</option>
+        <option value="2">2 additional bags — $80</option>
+        <option value="3">3 additional bags — $120</option>
+      </select>
+    </section>
+
+    <section class="extra-card">
+      <h3>💺 Seat selection</h3>
+      <p>Choose the seating experience that suits you best.</p>
+
+      <label for="seat">Seat preference</label>
+      <select id="seat">
+        <option value="0">Standard seat — $0</option>
+        <option value="25">Extra-legroom seat — $25 per passenger</option>
+        <option value="40">Premium seat — $40 per passenger</option>
+      </select>
+    </section>
+
+    <section class="extra-card">
+      <h3>🍽️ Special meals</h3>
+      <p>Choose a meal preference for your flight.</p>
+
+      <label for="meal">Meal preference</label>
+      <select id="meal">
+        <option value="0">Standard meal — $0</option>
+        <option value="0">Vegetarian meal — $0</option>
+        <option value="0">Vegan meal — $0</option>
+        <option value="0">Gluten-free meal — $0</option>
+        <option value="0">No meal required — $0</option>
+      </select>
+    </section>
+
+    <section class="extra-card">
+      <h3>⚡ Priority boarding</h3>
+      <p>Board earlier and settle in before the rush.</p>
+
+      <label for="priority">Priority boarding</label>
+      <select id="priority">
+        <option value="0">No thanks — $0</option>
+        <option value="15">Yes, add priority boarding — $15 per passenger</option>
+      </select>
+    </section>
+
+    <section class="price-summary">
+      <h3>Your extras total</h3>
+      <p>Estimated additional cost for your selected extras:</p>
+      <div class="price" id="extrasTotal">$0.00 AUD</div>
+      <p id="passengerNote">For 1 passenger</p>
+    </section>
+
+    <div class="buttons">
+      <button class="button back-button" onclick="history.back()">
+        ← Back
+      </button>
+
+      <button class="button continue-button" id="continueButton">
+        Continue to Payment →
+      </button>
+    </div>
+
+  </main>
+
+  <footer>
+    © Oceanic Airways · Fictional airline demonstration
+    <br>
+    No real bookings or payments are processed.
+  </footer>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+
+    const passengers = Math.max(
+      1,
+      parseInt(params.get("passengers"), 10) || 1
+    );
+
+    const tripType = params.get("tripType") || "oneway";
+    const directions = tripType === "roundtrip" ? 2 : 1;
+
+    function updateExtrasTotal() {
+      const baggage = Number(document.getElementById("baggage").value);
+      const seat = Number(document.getElementById("seat").value);
+      const priority = Number(document.getElementById("priority").value);
+
+      const total =
+        (baggage * 40 * directions) +
+        ((seat + priority) * passengers * directions);
+
+      document.getElementById("extrasTotal").textContent =
+        "$" + total.toFixed(2) + " AUD";
+
+      document.getElementById("passengerNote").textContent =
+        "For " + passengers + " passenger" +
+        (passengers === 1 ? "" : "s") +
+        (directions === 2 ? " · Return journey" : " · One-way journey");
+    }
+
+    ["baggage", "seat", "priority"].forEach(id => {
+      document.getElementById(id).addEventListener(
+        "change",
+        updateExtrasTotal
+      );
+    });
+
+    document.getElementById("continueButton").addEventListener("click", () => {
+      const nextParams = new URLSearchParams(window.location.search);
+
+      nextParams.set("bags", document.getElementById("baggage").value);
+      nextParams.set("seat", document.getElementById("seat").value);
+      nextParams.set("meal", document.getElementById("meal").selectedIndex);
+      nextParams.set("priority", document.getElementById("priority").value);
+
+      window.location.href = "payment.html?" + nextParams.toString();
+    });
+
+    updateExtrasTotal();
+  </script>
+
+</body>
+</html>
