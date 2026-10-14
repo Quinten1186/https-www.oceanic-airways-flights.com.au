@@ -1170,28 +1170,30 @@
         }
 
         const reference =
-          "OA-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+          const passengerDetails = {
+firstName: firstName,
+lastName: lastName,
+dateOfBirth: document.getElementById("dateOfBirth").value,
+cabin: document.getElementById("cabin").value
+};
 
-        document.getElementById("successGreeting").textContent =
-          "Thank you, " + firstName + "! Your demo booking has been completed.";
+const bookingData = {
+origin: origin,
+destination: destination,
+departDate: departDate,
+returnDate: returnDateValue,
+tripType: tripType,
+passengers: passengerCount,
+flight: selectedFlight.id,
+passengerDetails: passengerDetails
+};
 
-        document.getElementById("bookingReference").textContent =
-          reference;
+sessionStorage.setItem("oceanicBooking", JSON.stringify(bookingData));
 
-        document.getElementById("successDetails").textContent =
-          "Sample journey: " + origin + " → " + destination +
-          " · " + formatDate(departDate) +
-          " · " + selectedFlight.name +
-          " · " + document.getElementById("cabin").value +
-          " · Total: " + document.getElementById("totalPrice").textContent;
+const extrasUrl = new URL("extras.html", window.location.href);
 
-        document.getElementById("bookingLayout").style.display = "none";
-        document.getElementById("successMessage").style.display = "block";
+window.location.href = extrasUrl.href;
 
-        document.getElementById("successMessage").scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
       }
     );
 
