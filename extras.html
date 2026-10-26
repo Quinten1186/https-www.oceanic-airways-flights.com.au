@@ -1,0 +1,278 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oceanic Airways | Booking Extras</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f2f6fa;
+      color: #183047;
+    }
+
+    header {
+      background: #06294a;
+      color: white;
+      padding: 24px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      letter-spacing: 2px;
+    }
+
+    header p {
+      margin-bottom: 0;
+      color: #c9dced;
+    }
+
+    main {
+      max-width: 850px;
+      margin: 35px auto;
+      padding: 0 18px;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #06294a;
+    }
+
+    .flight-details {
+      line-height: 1.9;
+    }
+
+    .extra {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px 0;
+      border-bottom: 1px solid #e1e8ef;
+    }
+
+    .extra:last-child {
+      border-bottom: none;
+    }
+
+    .extra input {
+      width: 18px;
+      height: 18px;
+    }
+
+    .extra label {
+      flex: 1;
+      cursor: pointer;
+    }
+
+    .price {
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 8px;
+      background: #0878b9;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #065d91;
+    }
+
+    .notice {
+      color: #526779;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #64798b;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>OCEANIC AIRWAYS</h1>
+    <p>Your journey, your way.</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Booking Extras</h2>
+      <p>Personalise your journey with optional extras.</p>
+
+      <div class="flight-details" id="flightDetails">
+        Loading your booking details...
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Choose Your Extras</h2>
+
+      <div class="extra">
+        <input type="checkbox" id="checkedBag">
+        <label for="checkedBag">
+          <strong>Additional checked baggage</strong><br>
+          Add an extra checked bag to your journey.
+        </label>
+        <span class="price">$45</span>
+      </div>
+
+      <div class="extra">
+        <input type="checkbox" id="seatSelection">
+        <label for="seatSelection">
+          <strong>Preferred seat selection</strong><br>
+          Choose a preferred seat for your journey.
+        </label>
+        <span class="price">$25</span>
+      </div>
+
+      <div class="extra">
+        <input type="checkbox" id="priorityBoarding">
+        <label for="priorityBoarding">
+          <strong>Priority boarding</strong><br>
+          Board the aircraft earlier.
+        </label>
+        <span class="price">$20</span>
+      </div>
+
+      <div class="extra">
+        <input type="checkbox" id="loungeAccess">
+        <label for="loungeAccess">
+          <strong>Airport lounge access</strong><br>
+          Enjoy a more relaxing airport experience.
+        </label>
+        <span class="price">$55</span>
+      </div>
+
+      <p class="notice">
+        These prices are demonstration prices only. No payment will be taken.
+      </p>
+
+      <h2 id="total">Extras total: $0</h2>
+
+      <button type="button" id="continueButton">
+        Continue to Booking Confirmation
+      </button>
+    </section>
+  </main>
+
+  <footer>
+    © Oceanic Airways | A fictional airline experience
+  </footer>
+
+  <script>
+    const bookingText = document.getElementById("flightDetails");
+    const savedBooking = sessionStorage.getItem("oceanicBooking");
+
+    if (savedBooking) {
+      try {
+        const booking = JSON.parse(savedBooking);
+        const passenger = booking.passengerDetails || {};
+
+        bookingText.textContent = "";
+
+        const details = [
+          ["Passenger", [passenger.firstName, passenger.lastName].filter(Boolean).join(" ")],
+          ["From", booking.origin],
+          ["To", booking.destination],
+          ["Departure", booking.departDate],
+          ["Return", booking.tripType === "return" ? booking.returnDate : "One-way"],
+          ["Passengers", booking.passengers],
+          ["Cabin", passenger.cabin]
+        ];
+
+        details.forEach(([label, value]) => {
+          if (value) {
+            const row = document.createElement("div");
+            const strong = document.createElement("strong");
+            strong.textContent = label + ": ";
+            row.appendChild(strong);
+            row.appendChild(document.createTextNode(String(value)));
+            bookingText.appendChild(row);
+          }
+        });
+
+        if (!bookingText.textContent.trim()) {
+          bookingText.textContent = "Your booking has been saved.";
+        }
+      } catch (error) {
+        bookingText.textContent = "Your booking details could not be displayed.";
+      }
+    } else {
+      bookingText.textContent =
+        "No saved booking was found. Please start from the booking page.";
+    }
+
+    const extras = [
+      ["checkedBag", 45],
+      ["seatSelection", 25],
+      ["priorityBoarding", 20],
+      ["loungeAccess", 55]
+    ];
+
+    function updateTotal() {
+      const total = extras.reduce((sum, [id, price]) => {
+        return sum + (document.getElementById(id).checked ? price : 0);
+      }, 0);
+
+      document.getElementById("total").textContent =
+        "Extras total: $" + total;
+    }
+
+    extras.forEach(([id]) => {
+      document.getElementById(id).addEventListener("change", updateTotal);
+    });
+
+    document.getElementById("continueButton").addEventListener("click", () => {
+      const saved = sessionStorage.getItem("oceanicBooking");
+
+      if (!saved) {
+        alert("No booking details were found. Please return to the booking page and try again.");
+        return;
+      }
+
+      const booking = JSON.parse(saved);
+
+      booking.extras = extras
+        .filter(([id]) => document.getElementById(id).checked)
+        .map(([id, price]) => ({ name: id, price }));
+
+      booking.extrasTotal = booking.extras.reduce(
+        (sum, extra) => sum + extra.price, 0
+      );
+
+      sessionStorage.setItem("oceanicBooking", JSON.stringify(booking));
+
+      window.location.href = "confirmation.html";
+    });
+  </script>
+</body>
+</html>
+```
