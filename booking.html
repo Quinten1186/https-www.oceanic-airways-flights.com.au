@@ -1169,23 +1169,26 @@
           return;
         }
 
-        const reference =
-          const passengerDetails = {
-firstName: firstName,
-lastName: lastName,
-dateOfBirth: document.getElementById("dateOfBirth").value,
-cabin: document.getElementById("cabin").value
+        ```javascript
+const reference = "OCA-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+
+const passengerDetails = {
+  firstName: firstName,
+  lastName: lastName,
+  dateOfBirth: document.getElementById("dateOfBirth").value,
+  cabin: document.getElementById("cabin").value
 };
 
 const bookingData = {
-origin: origin,
-destination: destination,
-departDate: departDate,
-returnDate: returnDateValue,
-tripType: tripType,
-passengers: passengerCount,
-flight: selectedFlight.id,
-passengerDetails: passengerDetails
+  reference: reference,
+  origin: origin,
+  destination: destination,
+  departDate: departDate,
+  returnDate: returnDateValue,
+  tripType: tripType,
+  passengers: passengerCount,
+  flight: selectedFlight.id,
+  passengerDetails: passengerDetails
 };
 
 sessionStorage.setItem("oceanicBooking", JSON.stringify(bookingData));
@@ -1193,6 +1196,7 @@ sessionStorage.setItem("oceanicBooking", JSON.stringify(bookingData));
 const extrasUrl = new URL("extras.html", window.location.href);
 
 window.location.href = extrasUrl.href;
+```
 
       }
     );
